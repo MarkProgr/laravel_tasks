@@ -20,15 +20,15 @@ Route::get('/', [LocalUserController::class, 'list'])->name('main')
 
 Route::get('/create', [LocalUserController::class, 'createForm'])->name('create.form')
     ->middleware('auth');
-Route::post('/create', [LocalUserController::class, 'createUser'])->name('create.user')
+Route::post('/create', [LocalUserController::class, 'create'])->name('create.user')
     ->middleware('auth');
 
 Route::get('/edit/{localUser}', [LocalUserController::class, 'editForm'])->name('edit.form')
     ->middleware('auth');
-Route::post('/edit/{localUser}', [LocalUserController::class, 'editUser'])->name('edit.user')
+Route::post('/edit/{localUser}', [LocalUserController::class, 'edit'])->name('edit.user')
     ->middleware('auth');
 
-Route::post('/delete/{localUser}', [LocalUserController::class, 'deleteUser'])->name('delete.user')
+Route::post('/delete/{localUser}', [LocalUserController::class, 'delete'])->name('delete.user')
     ->middleware('auth');;
 
 Route::get('/about/{localUser}', [LocalUserController::class, 'about'])->name('about.user')
