@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\User\CreateRequest;
 use App\Http\Requests\User\EditRequest;
 use App\Models\LocalUser;
+use App\Services\LocalUserService;
 use Illuminate\Support\Facades\Storage;
 
 class LocalUserController extends Controller
 {
+    public function __construct(private LocalUserService $service)
+    {
+    }
+
     public function createForm()
     {
         return view('users.create-form');
     }
 
-    public function createUser(CreateRequest $request)
+    public function create(CreateRequest $request)
     {
         $file = $request->file('image_name');
         $data = $request->validated();
@@ -25,8 +30,7 @@ class LocalUserController extends Controller
             Storage::disk('public')->put($file->hashName(), file_get_contents($file));
         }
 
-        $localUser = new LocalUser($data);
-        $localUser->save();
+        $localUser = $this->service->create($data);
 
         return redirect()->route('main');
     }
@@ -43,7 +47,7 @@ class LocalUserController extends Controller
         return view('users.edit-form', compact('localUser'));
     }
 
-    public function editUser(LocalUser $localUser, EditRequest $request)
+    public function edit(LocalUser $localUser, EditRequest $request)
     {
         $file = $request->file('image_name');
         $data = $request->validated();
@@ -64,20 +68,18 @@ class LocalUserController extends Controller
             Storage::disk('public')->put($file->hashName(), file_get_contents($file));
         }
 
-        $localUser->fill($data);
-
-        $localUser->save();
+        $this->service->update($localUser, $data);
 
         return redirect()->route('main');
     }
 
-    public function deleteUser(LocalUser $localUser)
+    public function delete(LocalUser $localUser)
     {
-        $localUser->delete();
-
         if ($localUser->image_name) {
             Storage::disk('public')->delete($localUser->image_name);
         }
+
+        $this->service->delete($localUser);
 
         return redirect()->route('main');
     }

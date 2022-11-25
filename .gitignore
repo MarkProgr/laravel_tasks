@@ -19,3 +19,4 @@ yarn-error.log
 tailwind.config.js
 /public/uploads
 vite.config.js
+.env.testing
