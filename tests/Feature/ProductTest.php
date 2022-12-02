@@ -1,0 +1,155 @@
+<?php
+
+namespace Feature;
+
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
+
+class ProductTest extends TestCase
+{
+    use RefreshDatabase, DatabaseMigrations;
+
+    public function createCategory()
+    {
+        $response = $this->postJson('/api/category/create', ['name' => 'Laptop']);
+
+        return $response->json('data.id');
+    }
+
+    public function createProduct()
+    {
+        $categoryId[] = $this->createCategory();
+
+        $response = $this->postJson('/api/product/create',
+        ['name' => 'Laptop',
+            'description' => 'Work',
+            'manufacturer' => 'HP',
+            'release_date' => '11-09-2021',
+            'price' => 3900,
+            'categories' => $categoryId]);
+
+        return $response->json('data.id');
+    }
+
+    public function test_create()
+    {
+        $categoryId[] = $this->createCategory();
+
+        $response = $this->postJson('/api/product/create',
+        ['name' => 'Laptop',
+            'description' => 'Work',
+            'manufacturer' => 'HP',
+            'release_date' => '11-09-2021',
+            'price' => 3900,
+            'categories' => $categoryId]);
+
+        $response
+            ->assertStatus(201)
+            ->assertJsonStructure(
+                ['data' =>
+                ['id',
+                    'name',
+                    'description',
+                    'manufacturer',
+                    'release_date',
+                    'price',
+                    'categories']]
+            );
+    }
+
+    public function test_update()
+    {
+        $id = $this->createProduct();
+
+        $categoryId[] = $this->createCategory();
+
+        $response = $this->putJson('/api/product/edit/' . $id,
+        ['name' => 'Computer',
+            'description' => 'Is working',
+            'manufacturer' => 'Lenovo',
+            'release_date' => '12-10-2021',
+            'price' => 3300,
+            'categories' => $categoryId]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(
+                ['data' =>
+                ['id',
+                    'name',
+                    'description',
+                    'manufacturer',
+                    'release_date',
+                    'price',
+                    'categories']]
+            );
+    }
+
+    public function test_delete()
+    {
+        $id = $this->createProduct();
+
+        $response = $this->deleteJson('/api/product/delete/' . $id);
+
+        $response->assertStatus(204);
+    }
+
+    public function test_list()
+    {
+        $this->createProduct();
+        $response = $this->getJson('/api/product/list');
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(
+                ['data',
+                    'links',
+                    'meta']
+            );
+    }
+
+    public function test_about()
+    {
+        $id = $this->createProduct();
+
+        $response = $this->getJson('/api/product/about/' . $id);
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(
+                ['data' =>
+                ['id',
+                    'name',
+                    'description',
+                    'manufacturer',
+                    'release_date',
+                    'price',
+                    'categories']]
+            );
+    }
+
+    public function test_filter()
+    {
+        $categoryResponse = $this->postJson('/api/category/create', ['name' => 'Laptop']);
+
+        $categoryName[] = $categoryResponse->json('data.name');
+
+        $this->createProduct();
+        $response = $this->postJson('/api/product/filter', ['categories' => $categoryName]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(
+            ['data' =>
+            ['0' =>
+            ['id',
+                'name',
+                'description',
+                'manufacturer',
+                'release_date',
+                'price',
+                'categories']]]);
+    }
+}

@@ -16,16 +16,16 @@ class LocalUserController extends Controller
     {
     }
 
-    public function create(CreateRequest $request)
+    public function create(CreateRequest $request): LocalUserResource
     {
         $data = $request->validated();
 
-        $localUser = $this->service->create($data);
+        $user = $this->service->create($data);
 
-        return new LocalUserResource($localUser);
+        return new LocalUserResource($user);
     }
 
-    public function edit(LocalUser $user, EditRequest $request)
+    public function edit(LocalUser $user, EditRequest $request): LocalUserResource
     {
         $data = $request->validated();
 
@@ -41,7 +41,7 @@ class LocalUserController extends Controller
         return response(status: 204);
     }
 
-    public function about(LocalUser $user)
+    public function about(LocalUser $user): LocalUserResource
     {
         return new LocalUserResource($user);
     }

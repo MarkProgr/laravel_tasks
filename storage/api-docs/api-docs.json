@@ -1,0 +1,186 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "api product controller",
+        "version": "3.1"
+    },
+    "paths": {
+        "/api/api/product/create": {
+            "post": {
+                "summary": "create product in api",
+                "operationId": "fcb53830108f801768deedd773323621",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {},
+                                    "description": {},
+                                    "manufacturer": {},
+                                    "release_date": {},
+                                    "price": {}
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "o",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/api/product/edit/{product}": {
+            "put": {
+                "summary": "update product in api",
+                "operationId": "3b0cb5fd12f3f45bbaf5533dbaac025a",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "App\\Models\\Product"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {},
+                                    "description": {},
+                                    "manufacturer": {},
+                                    "release_date": {},
+                                    "price": {},
+                                    "categories": {}
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/api/product/delete/{product}": {
+            "delete": {
+                "summary": "delete product in api",
+                "operationId": "6e65e9de360e0cc73aa5fd320c443e73",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "App\\Models\\Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "success"
+                    },
+                    "404": {
+                        "description": "Failed"
+                    }
+                }
+            }
+        },
+        "/api/api/product/about/{product}": {
+            "get": {
+                "summary": "show info about product",
+                "operationId": "29f6c04b3c1682ef56c69244a91a819f",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "App\\Models\\Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Failed"
+                    }
+                }
+            }
+        },
+        "/api/api/product/list": {
+            "get": {
+                "summary": "Show all products",
+                "operationId": "a686ed653903c1baa18764be989f64b8",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/api/product/filter": {
+            "post": {
+                "summary": "Filter products by categories",
+                "operationId": "0eb5351bc0e2281657207fb27f881f03",
+                "requestBody": {
+                    "$ref": "Illuminate\\Http\\Request"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateRequest": {
+                "properties": {
+                    "test": {},
+                    "test1": {}
+                },
+                "type": "object"
+            }
+        }
+    }
+}

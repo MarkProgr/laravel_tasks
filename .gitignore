@@ -20,3 +20,5 @@ tailwind.config.js
 /public/uploads
 vite.config.js
 .env.testing
+sudo
+tsconfig.json

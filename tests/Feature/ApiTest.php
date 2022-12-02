@@ -13,7 +13,7 @@ class ApiTest extends TestCase
 
     public function createUser()
     {
-        $response = $this->postJson('/api/api/create',
+        $response = $this->postJson('/api/create',
             ['name' => 'Vasya',
                 'email' => rand(0, 1000) . '@' . rand(0, 1000),
                 'gender' => 'Male',
@@ -23,9 +23,9 @@ class ApiTest extends TestCase
         return $response->json('data.id');
     }
 
-    public function test_сreate()
+    public function test_create()
     {
-        $response = $this->postJson('/api/api/create',
+        $response = $this->postJson('/api/create',
             ['name' => 'Vasya',
                 'email' => rand(0, 1000) . '@' . rand(0, 1000),
                 'gender' => 'Male',
@@ -46,7 +46,7 @@ class ApiTest extends TestCase
 
     public function test_list()
     {
-        $response = $this->getJson('/api/api/list');
+        $response = $this->getJson('/api/list');
 
         $response
             ->assertStatus(200)
@@ -58,21 +58,22 @@ class ApiTest extends TestCase
     {
         $id = $this->createUser();
 
-        $response = $this->putJson('/api/api/edit/' . $id,
+        $response = $this->putJson('/api/edit/' . $id,
             ['name' => 'Volodya',
                 'email' => rand(0, 1000) . '@' . rand(0, 1000),
                 'gender' => 'Female',
                 'status' => 'Active']);
 
         $response
-            ->assertStatus(201)
-            ->assertJsonStructure(['data' => [
-                'id',
-                'name',
-                'email',
-                'gender',
-                'status',
-                'image_name'
+            ->assertStatus(200)
+            ->assertJsonStructure(
+                ['data' =>
+                    ['id',
+                    'name',
+                    'email',
+                    'gender',
+                    'status',
+                    'image_name'
             ]]);
     }
 
@@ -80,7 +81,7 @@ class ApiTest extends TestCase
     {
         $id = $this->createUser();
 
-        $response = $this->deleteJson('/api/api/delete/' . $id);
+        $response = $this->deleteJson('/api/delete/' . $id);
 
         $response->assertStatus(204);
     }
@@ -89,12 +90,13 @@ class ApiTest extends TestCase
     {
         $id = $this->createUser();
 
-        $response = $this->getJson('/api/api/about/' . $id);
+        $response = $this->getJson('/api/about/' . $id);
 
         $response
             ->assertStatus(200)
-            ->assertJsonStructure(['data' => [
-                'id',
+            ->assertJsonStructure(
+            ['data' =>
+                ['id',
                 'name',
                 'email',
                 'gender',

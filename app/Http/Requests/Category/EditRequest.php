@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,11 +24,7 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'min:4', 'max:20'],
-            'email' => ['required', 'email:rfc', 'unique:local_users,email'],
-            'gender' => ['required'],
-            'status' => ['required'],
-//            'image_name' => ['image'],
+            'name' => ['required']
         ];
     }
 }
