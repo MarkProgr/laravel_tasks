@@ -25,10 +25,10 @@ class CreateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:4', 'max:20'],
-            'email' => ['required', 'email:rfc', 'unique:local_users'],
+            'email' => ['required', 'email:rfc', 'unique:local_users,email'],
             'gender' => ['required'],
             'status' => ['required'],
-            'image_name' => ['image'],
+//            'image_name' => ['image'],
         ];
     }
 }

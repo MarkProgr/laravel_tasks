@@ -28,9 +28,9 @@ class CreateRequest extends FormRequest
             'description' => ['required'],
             'manufacturer' => ['required'],
             'release_date' => ['required'],
-            'price' => ['required', 'max_digits:8', 'numeric'],
+            'price' => ['required', 'numeric'],
             'categories' => ['required', 'array', 'min:1'],
-            'categories.*' => ['required', 'exists:categories,id']
+            'categories.*' => ['required']
         ];
     }
 }

@@ -7,18 +7,19 @@ use App\Http\Requests\Product\CreateRequest;
 use App\Http\Requests\Product\EditRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
     public function create(CreateRequest $request): ProductResource
     {
         $data = $request->validated();
         $product = new Product($data);
+        $product->save();
 
         $product->categories()->attach($data['categories']);
-        $product->save();
 
         return new ProductResource($product);
     }
@@ -28,8 +29,9 @@ class ProductController extends Controller
         $data = $request->validated();
         $product->fill($data);
 
-        $product->categories()->attach($data['categories']);
         $product->save();
+
+        $product->categories()->sync($data['categories']);
 
         return new ProductResource($product);
     }
@@ -48,7 +50,7 @@ class ProductController extends Controller
 
     public function list()
     {
-        $products = Product::all();
+        $products = Product::query()->paginate(5);
 
         return ProductResource::collection($products);
     }
@@ -57,7 +59,7 @@ class ProductController extends Controller
     {
         if ($request->input('categories')) {
             $product = Product::query()->whereHas('categories', function (Builder $query) use ($request) {
-                $query->whereIn('categories.id',$request->input('categories'));
+                $query->whereIn('categories.name', $request->input('categories'));
             })->get();
 
             return ProductResource::collection($product);

@@ -13,29 +13,32 @@ class CategoryTest extends TestCase
 
     public function createCategory()
     {
-        $response = $this->postJson('/api/api/create/category', ['name' => 'Laptops']);
+        $response = $this->postJson('/api/category/create', ['name' => 'Laptop']);
 
         return $response->json('data.id');
     }
 
     public function test_create()
     {
-        $response = $this->postJson('/api/api/create/category', ['name' => 'Laptops']);
+        $response = $this->postJson('/api/category/create', ['name' => 'Laptop']);
 
-        $response->assertJsonStructure(['data' => [
-            'id',
-            'name']]);
+        $response
+            ->assertStatus(201)
+            ->assertJsonStructure(
+            ['data' =>
+                ['id',
+                'name']]);
     }
 
     public function test_update()
     {
         $id = $this->createCategory();
 
-        $response = $this->putJson('/api/api/edit/category/' . $id,
-        ['name' => 'Phones']);
+        $response = $this->putJson('/api/category/edit/' . $id,
+        ['name' => 'Laptops']);
 
         $response
-            ->assertStatus(201)
+            ->assertStatus(200)
             ->assertJsonStructure(['data' => [
                 'id',
                 'name']]);
@@ -45,14 +48,14 @@ class CategoryTest extends TestCase
     {
         $id = $this->createCategory();
 
-        $response = $this->deleteJson('/api/api/delete/category/' . $id);
+        $response = $this->deleteJson('/api/category/delete/' . $id);
 
         $response->assertStatus(204);
     }
 
     public function test_list()
     {
-        $response = $this->getJson('/api/api/list/categories');
+        $response = $this->getJson('/api/category/list');
 
         $response
             ->assertStatus(200)
@@ -64,7 +67,7 @@ class CategoryTest extends TestCase
     {
         $id = $this->createCategory();
 
-        $response = $this->getJson('/api/api/about/category/' . $id);
+        $response = $this->getJson('/api/category/about/' . $id);
 
         $response
             ->assertStatus(200)
