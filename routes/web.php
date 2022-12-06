@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->group(function () {
+//Route::middleware('auth')->group(function () {
     Route::controller(LocalUserController::class)->group(function () {
         Route::get('/list', 'list')->name('main');
         Route::get('/create', 'createForm')->name('create.form');
@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/delete/{localUser}', 'deleteUser')->name('delete.user');
         Route::get('/about/{localUser}', 'about')->name('about.user');
     });
-});
+//});
 
 
 Route::controller(UserController::class)->group(function () {
