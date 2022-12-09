@@ -15,17 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->group(function () {
+//Route::middleware('auth')->group(function () {
     Route::controller(LocalUserController::class)->group(function () {
         Route::get('/list', 'list')->name('main');
-        Route::get('/create', 'createForm')->name('create.form');
-        Route::post('/create', 'createUser')->name('create.user');
-        Route::get('/edit/{localUser}', 'editForm')->name('edit.form');
-        Route::post('/edit/{localUser}','editUser')->name('edit.user');
-        Route::post('/delete/{localUser}', 'deleteUser')->name('delete.user');
-        Route::get('/about/{localUser}', 'about')->name('about.user');
+//        Route::get('/create', 'createForm')->name('create.form');
+//        Route::post('/create', 'createUser')->name('create.user');
+//        Route::get('/edit/{localUser}', 'editForm')->name('edit.form');
+//        Route::post('/edit/{localUser}','editUser')->name('edit.user');
+//        Route::post('/delete/{localUser}', 'deleteUser')->name('delete.user');
+//        Route::get('/about/{localUser}', 'about')->name('about.user');
     });
-});
+//});
 
 
 Route::controller(UserController::class)->group(function () {
