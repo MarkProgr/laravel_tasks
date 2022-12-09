@@ -1,8 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import React, { Component } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import ReactDOM from 'react-dom/client';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import { Link, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AboutUser from './AboutUser';
@@ -10,10 +7,12 @@ import EditUser from './EditUser';
 import CreateUser from './CreateUser';
 
 class App extends Component {
-  // eslint-disable-next-line react/state-in-constructor
-  state = {
-    users: [],
-  };
+  constructor(args) {
+    super(args);
+    this.state = {
+      users: [],
+    };
+  }
 
   componentDidMount() {
     axios.get('/api/list')
@@ -22,13 +21,11 @@ class App extends Component {
       });
   }
 
-  // eslint-disable-next-line class-methods-use-this
   deleteUser(id) {
     axios.delete(`api/delete/${id}`)
-    // eslint-disable-next-line consistent-return
       .then((response) => {
         if (response.status === 204) {
-          return window.location.reload();
+          window.location.reload();
         }
       });
   }
@@ -47,20 +44,23 @@ class App extends Component {
           </tr>
         </thead>
         <tbody>
-          {/* eslint-disable-next-line react/destructuring-assignment */}
-          {this.state.users.map((user, key) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <tr key={key}>
-              <th scope="row">{user.id}</th>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.gender}</td>
-              <td>{user.status}</td>
+          {this.state.users.map(({
+            id,
+            name,
+            email,
+            gender,
+            status,
+          }) => (
+            <tr key={id}>
+              <th scope="row">{id}</th>
+              <td>{name}</td>
+              <td>{email}</td>
+              <td>{gender}</td>
+              <td>{status}</td>
               <td>
-                <Link className="btn btn-dark" to={`/about/${user.id}`}>About</Link>
-                <Link className="btn btn-dark" to={`/edit/${user.id}`}>Edit</Link>
-                {/* eslint-disable-next-line react/button-has-type */}
-                <button className="btn btn-danger" onClick={() => this.deleteUser(user.id)}>Delete</button>
+                <Link className="btn btn-dark" to={`/about/${id}`}>About</Link>
+                <Link className="btn btn-dark" to={`/edit/${id}`}>Edit</Link>
+                <button type="button" className="btn btn-danger" onClick={() => this.deleteUser(id)}>Delete</button>
               </td>
             </tr>
           ))}

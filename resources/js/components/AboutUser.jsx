@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import React, { useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
