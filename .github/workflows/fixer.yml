@@ -1,0 +1,17 @@
+name: fixer
+on: [push, pull_request]
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '19'
+      - run: npm install
+      - run: eslint resources/js/ --ext .js,.jsx,.ts,.tsx
+  cs-fixer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: docker://oskarstark/php-cs-fixer-ga
