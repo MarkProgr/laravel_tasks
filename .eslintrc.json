@@ -21,5 +21,10 @@
         "jsx-a11y/label-has-associated-control": "off",
         "react/destructuring-assignment": "off",
         "class-methods-use-this": "off"
-    }
+    },
+    "ignorePatterns": [
+        "tailwind.config.js",
+        "vite.config.js",
+        "postcss.config.js"
+    ]
 }

@@ -1,29 +1,33 @@
 name: fixer
 on: [pull_request]
 jobs:
-  eslint:
+  lint:
     runs-on: ubuntu-latest
-    container:
-      image: node
-      volumes:
-        - ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v3
-      - name: install
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 19
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          coverage: none
+          tools: phpcs
+
+      - name: Install Node.js dependencies
         run: npm ci
-      - name: run
-        run: npx eslint --ext .jsx,.js resources/js
-  cs-fixer:
-    runs-on: ubuntu-latest
-    container:
-      image: cytopia/php-cs-fixer
-      volumes:
-        - ${{ github.workspace }}:/data
-    steps:
-      - uses: actions/checkout@v3
-      - name: run
-        run: php-cs-fixer fix --dry-run --diff .
-  phpunit:
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          php_codesniffer: true
+          php_codesniffer_args: "--standard=PSR12 --ignore=*/node_modules/*"
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
