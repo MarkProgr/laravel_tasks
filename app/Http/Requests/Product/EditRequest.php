@@ -30,7 +30,7 @@ class EditRequest extends FormRequest
             'release_date' => ['required'],
             'price' => ['required', 'max_digits:8', 'numeric'],
             'categories' => ['required', 'array', 'min:1'],
-            'categories.*' => ['required', 'exists:categories,id']
+            'categories.*' => ['required', 'exists:categories,id'],
         ];
     }
 }

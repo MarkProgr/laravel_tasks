@@ -58,12 +58,12 @@ class LocalUserController extends Controller
             Storage::disk('public')->delete($localUser->image_name);
         }
 
-        if (!$file && $localUser->image_name) {
+        if (! $file && $localUser->image_name) {
             $data['image_name'] = null;
             Storage::disk('public')->delete($localUser->image_name);
         }
 
-        if ($file && !$localUser->image_name) {
+        if ($file && ! $localUser->image_name) {
             $data['image_name'] = $file->hashName();
             Storage::disk('public')->put($file->hashName(), file_get_contents($file));
         }

@@ -14,6 +14,6 @@ class LocalUser extends Model
         'email',
         'gender',
         'status',
-        'image_name'
+        'image_name',
     ];
 }

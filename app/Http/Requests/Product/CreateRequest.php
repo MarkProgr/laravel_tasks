@@ -30,7 +30,7 @@ class CreateRequest extends FormRequest
             'release_date' => ['required'],
             'price' => ['required', 'numeric'],
             'categories' => ['required', 'array', 'min:1'],
-            'categories.*' => ['required']
+            'categories.*' => ['required'],
         ];
     }
 }

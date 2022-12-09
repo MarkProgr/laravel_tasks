@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-
     public function create(CreateRequest $request): ProductResource
     {
         $data = $request->validated();

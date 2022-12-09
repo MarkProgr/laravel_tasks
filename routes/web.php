@@ -16,24 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::middleware('auth')->group(function () {
-    Route::controller(LocalUserController::class)->group(function () {
-        Route::get('/list', 'list')->name('main');
+Route::controller(LocalUserController::class)->group(function () {
+    Route::get('/list', 'list')->name('main');
 //        Route::get('/create', 'createForm')->name('create.form');
 //        Route::post('/create', 'createUser')->name('create.user');
 //        Route::get('/edit/{localUser}', 'editForm')->name('edit.form');
 //        Route::post('/edit/{localUser}','editUser')->name('edit.user');
 //        Route::post('/delete/{localUser}', 'deleteUser')->name('delete.user');
 //        Route::get('/about/{localUser}', 'about')->name('about.user');
-    });
+});
 //});
 
-
 Route::controller(UserController::class)->group(function () {
-    Route::get('/sign-up','signUpForm')->name('sign-up.form');
-    Route::post('/sign-up','signUp')->name('sign-up');
+    Route::get('/sign-up', 'signUpForm')->name('sign-up.form');
+    Route::post('/sign-up', 'signUp')->name('sign-up');
     Route::get('/login', 'loginForm')->name('login.form');
-    Route::post('/login','login')->name('login');
-    Route::post('/logout','logout')->name('logout');
+    Route::post('/login', 'login')->name('login');
+    Route::post('/logout', 'logout')->name('logout');
 });
 
 //Auth::routes();

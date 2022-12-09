@@ -1,21 +1,34 @@
 name: fixer
-on: [push, pull_request]
+on: [pull_request]
 jobs:
   eslint:
     runs-on: ubuntu-latest
+    container:
+      image: node
+      volumes:
+        - ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '19'
-      - run: npm install
-      - run: eslint resources/js/ --ext .js,.jsx,.ts,.tsx
+      - name: install
+        run: npm ci
+      - name: run
+        run: npx eslint --ext .jsx,.js resources/js
   cs-fixer:
+    runs-on: ubuntu-latest
+    container:
+      image: cytopia/php-cs-fixer
+      volumes:
+        - ${{ github.workspace }}:/data
+    steps:
+      - uses: actions/checkout@v3
+      - name: run
+        run: php-cs-fixer fix --dry-run --diff .
+  phpunit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: addnab/docker-run-action@v3
+      - uses: php-actions/composer@v2
+      - uses: php-actions/phpunit@v9
         with:
-          image: cytopia/php-cs-fixer
-          options: -v ${{ github.workspace }}:/data
-          run: fix --dry-run --diff .
+          configuration: phpunit.xml
+      - run: phpunit

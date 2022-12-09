@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
             'email' => ['required', 'email:rfc', 'unique:local_users,email'],
             'gender' => ['required'],
             'status' => ['required'],
-//            'image_name' => ['image'],
+            //            'image_name' => ['image'],
         ];
     }
 }

@@ -7,7 +7,6 @@ use App\Http\Requests\Category\CreateRequest;
 use App\Http\Requests\Category\EditRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {

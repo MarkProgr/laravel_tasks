@@ -8,7 +8,6 @@ use App\Http\Requests\User\EditRequest;
 use App\Http\Resources\LocalUserResource;
 use App\Models\LocalUser;
 use App\Services\LocalUserService;
-use Illuminate\Http\Request;
 
 class LocalUserController extends Controller
 {

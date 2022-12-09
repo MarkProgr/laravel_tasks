@@ -4,7 +4,6 @@ namespace Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
@@ -23,12 +22,12 @@ class ProductTest extends TestCase
         $categoryId[] = $this->createCategory();
 
         $response = $this->postJson('/api/product/create',
-        ['name' => 'Laptop',
-            'description' => 'Work',
-            'manufacturer' => 'HP',
-            'release_date' => '11-09-2021',
-            'price' => 3900,
-            'categories' => $categoryId]);
+            ['name' => 'Laptop',
+                'description' => 'Work',
+                'manufacturer' => 'HP',
+                'release_date' => '11-09-2021',
+                'price' => 3900,
+                'categories' => $categoryId, ]);
 
         return $response->json('data.id');
     }
@@ -38,24 +37,23 @@ class ProductTest extends TestCase
         $categoryId[] = $this->createCategory();
 
         $response = $this->postJson('/api/product/create',
-        ['name' => 'Laptop',
-            'description' => 'Work',
-            'manufacturer' => 'HP',
-            'release_date' => '11-09-2021',
-            'price' => 3900,
-            'categories' => $categoryId]);
+            ['name' => 'Laptop',
+                'description' => 'Work',
+                'manufacturer' => 'HP',
+                'release_date' => '11-09-2021',
+                'price' => 3900,
+                'categories' => $categoryId, ]);
 
         $response
             ->assertStatus(201)
             ->assertJsonStructure(
-                ['data' =>
-                ['id',
+                ['data' => ['id',
                     'name',
                     'description',
                     'manufacturer',
                     'release_date',
                     'price',
-                    'categories']]
+                    'categories', ]]
             );
     }
 
@@ -65,25 +63,24 @@ class ProductTest extends TestCase
 
         $categoryId[] = $this->createCategory();
 
-        $response = $this->putJson('/api/product/edit/' . $id,
-        ['name' => 'Computer',
-            'description' => 'Is working',
-            'manufacturer' => 'Lenovo',
-            'release_date' => '12-10-2021',
-            'price' => 3300,
-            'categories' => $categoryId]);
+        $response = $this->putJson('/api/product/edit/'.$id,
+            ['name' => 'Computer',
+                'description' => 'Is working',
+                'manufacturer' => 'Lenovo',
+                'release_date' => '12-10-2021',
+                'price' => 3300,
+                'categories' => $categoryId, ]);
 
         $response
             ->assertStatus(200)
             ->assertJsonStructure(
-                ['data' =>
-                ['id',
+                ['data' => ['id',
                     'name',
                     'description',
                     'manufacturer',
                     'release_date',
                     'price',
-                    'categories']]
+                    'categories', ]]
             );
     }
 
@@ -91,7 +88,7 @@ class ProductTest extends TestCase
     {
         $id = $this->createProduct();
 
-        $response = $this->deleteJson('/api/product/delete/' . $id);
+        $response = $this->deleteJson('/api/product/delete/'.$id);
 
         $response->assertStatus(204);
     }
@@ -106,7 +103,7 @@ class ProductTest extends TestCase
             ->assertJsonStructure(
                 ['data',
                     'links',
-                    'meta']
+                    'meta', ]
             );
     }
 
@@ -114,19 +111,18 @@ class ProductTest extends TestCase
     {
         $id = $this->createProduct();
 
-        $response = $this->getJson('/api/product/about/' . $id);
+        $response = $this->getJson('/api/product/about/'.$id);
 
         $response
             ->assertStatus(200)
             ->assertJsonStructure(
-                ['data' =>
-                ['id',
+                ['data' => ['id',
                     'name',
                     'description',
                     'manufacturer',
                     'release_date',
                     'price',
-                    'categories']]
+                    'categories', ]]
             );
     }
 
@@ -142,14 +138,12 @@ class ProductTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJsonStructure(
-            ['data' =>
-            ['0' =>
-            ['id',
-                'name',
-                'description',
-                'manufacturer',
-                'release_date',
-                'price',
-                'categories']]]);
+                ['data' => ['0' => ['id',
+                    'name',
+                    'description',
+                    'manufacturer',
+                    'release_date',
+                    'price',
+                    'categories', ]]]);
     }
 }

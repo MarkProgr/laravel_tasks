@@ -37,10 +37,9 @@ class UserController extends Controller
 
         $currentUser = User::query()->where('login', '=', $credentials['login'])->first();
 
-
-        if (!$currentUser || !Hash::check($credentials['password'], $currentUser->password))
-        {
+        if (! $currentUser || ! Hash::check($credentials['password'], $currentUser->password)) {
             session()->flash('error', 'Invalid password or login');
+
             return redirect()->route('login');
         }
 

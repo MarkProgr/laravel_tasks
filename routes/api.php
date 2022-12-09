@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\LocalUserController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-
 
 //Route::middleware('')->group(function () {
 //    Route::controller(ProductController::class)->group(function () {
@@ -40,13 +39,11 @@ Route::delete('/product/delete/{product}', [ProductController::class, 'delete'])
 Route::put('/product/edit/{product}', [ProductController::class, 'update']);
 Route::post('/product/filter', [ProductController::class, 'filterByCategory']);
 
-
 Route::get('/category/about/{category}', [CategoryController::class, 'about']);
 Route::get('/category/list', [CategoryController::class, 'list']);
 Route::post('/category/create', [CategoryController::class, 'create']);
 Route::delete('/category/delete/{category}', [CategoryController::class, 'delete']);
 Route::put('/category/edit/{category}', [CategoryController::class, 'update']);
-
 
 Route::get('/about/{user}', [LocalUserController::class, 'about']);
 

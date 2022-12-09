@@ -25,30 +25,29 @@ class CategoryTest extends TestCase
         $response
             ->assertStatus(201)
             ->assertJsonStructure(
-            ['data' =>
-                ['id',
-                'name']]);
+                ['data' => ['id',
+                    'name', ]]);
     }
 
     public function test_update()
     {
         $id = $this->createCategory();
 
-        $response = $this->putJson('/api/category/edit/' . $id,
-        ['name' => 'Laptops']);
+        $response = $this->putJson('/api/category/edit/'.$id,
+            ['name' => 'Laptops']);
 
         $response
             ->assertStatus(200)
             ->assertJsonStructure(['data' => [
                 'id',
-                'name']]);
+                'name', ]]);
     }
 
     public function test_delete()
     {
         $id = $this->createCategory();
 
-        $response = $this->deleteJson('/api/category/delete/' . $id);
+        $response = $this->deleteJson('/api/category/delete/'.$id);
 
         $response->assertStatus(204);
     }
@@ -59,20 +58,19 @@ class CategoryTest extends TestCase
 
         $response
             ->assertStatus(200)
-            ->assertJson(fn(AssertableJson $json) =>
-                $json->has('data'));
+            ->assertJson(fn (AssertableJson $json) => $json->has('data'));
     }
 
     public function test_about()
     {
         $id = $this->createCategory();
 
-        $response = $this->getJson('/api/category/about/' . $id);
+        $response = $this->getJson('/api/category/about/'.$id);
 
         $response
             ->assertStatus(200)
             ->assertJsonStructure(['data' => [
                 'id',
-                'name']]);
+                'name', ]]);
     }
 }
