@@ -9,7 +9,8 @@ use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
-    use RefreshDatabase, DatabaseMigrations;
+    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function createCategory()
     {
@@ -18,7 +19,7 @@ class CategoryTest extends TestCase
         return $response->json('data.id');
     }
 
-    public function test_create()
+    public function testCreate()
     {
         $response = $this->postJson('/api/category/create', ['name' => 'Laptop']);
 
@@ -26,15 +27,19 @@ class CategoryTest extends TestCase
             ->assertStatus(201)
             ->assertJsonStructure(
                 ['data' => ['id',
-                    'name', ]]);
+                'name',
+                ]]
+            );
     }
 
-    public function test_update()
+    public function testUpdate()
     {
         $id = $this->createCategory();
 
-        $response = $this->putJson('/api/category/edit/'.$id,
-            ['name' => 'Laptops']);
+        $response = $this->putJson(
+            '/api/category/edit/' . $id,
+            ['name' => 'Laptops']
+        );
 
         $response
             ->assertStatus(200)
@@ -43,16 +48,16 @@ class CategoryTest extends TestCase
                 'name', ]]);
     }
 
-    public function test_delete()
+    public function testDelete()
     {
         $id = $this->createCategory();
 
-        $response = $this->deleteJson('/api/category/delete/'.$id);
+        $response = $this->deleteJson('/api/category/delete/' . $id);
 
         $response->assertStatus(204);
     }
 
-    public function test_list()
+    public function testList()
     {
         $response = $this->getJson('/api/category/list');
 
@@ -61,11 +66,11 @@ class CategoryTest extends TestCase
             ->assertJson(fn (AssertableJson $json) => $json->has('data'));
     }
 
-    public function test_about()
+    public function testAbout()
     {
         $id = $this->createCategory();
 
-        $response = $this->getJson('/api/category/about/'.$id);
+        $response = $this->getJson('/api/category/about/' . $id);
 
         $response
             ->assertStatus(200)

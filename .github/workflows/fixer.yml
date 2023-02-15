@@ -26,7 +26,7 @@ jobs:
         with:
           eslint: true
           php_codesniffer: true
-          php_codesniffer_args: "--standard=PSR12 --ignore=*/node_modules/*"
+          php_codesniffer_args: "--standard=./phpcs.xml --ignore=*/node_modules/*"
   test:
     runs-on: ubuntu-latest
     steps:

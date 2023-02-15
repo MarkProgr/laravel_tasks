@@ -8,7 +8,8 @@ use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
-    use RefreshDatabase, DatabaseMigrations;
+    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function createCategory()
     {
@@ -21,28 +22,34 @@ class ProductTest extends TestCase
     {
         $categoryId[] = $this->createCategory();
 
-        $response = $this->postJson('/api/product/create',
+        $response = $this->postJson(
+            '/api/product/create',
             ['name' => 'Laptop',
                 'description' => 'Work',
                 'manufacturer' => 'HP',
                 'release_date' => '11-09-2021',
                 'price' => 3900,
-                'categories' => $categoryId, ]);
+            'categories' => $categoryId,
+            ]
+        );
 
         return $response->json('data.id');
     }
 
-    public function test_create()
+    public function testCreate()
     {
         $categoryId[] = $this->createCategory();
 
-        $response = $this->postJson('/api/product/create',
+        $response = $this->postJson(
+            '/api/product/create',
             ['name' => 'Laptop',
                 'description' => 'Work',
                 'manufacturer' => 'HP',
                 'release_date' => '11-09-2021',
                 'price' => 3900,
-                'categories' => $categoryId, ]);
+            'categories' => $categoryId,
+            ]
+        );
 
         $response
             ->assertStatus(201)
@@ -57,19 +64,22 @@ class ProductTest extends TestCase
             );
     }
 
-    public function test_update()
+    public function testUpdate()
     {
         $id = $this->createProduct();
 
         $categoryId[] = $this->createCategory();
 
-        $response = $this->putJson('/api/product/edit/'.$id,
+        $response = $this->putJson(
+            '/api/product/edit/' . $id,
             ['name' => 'Computer',
                 'description' => 'Is working',
                 'manufacturer' => 'Lenovo',
                 'release_date' => '12-10-2021',
                 'price' => 3300,
-                'categories' => $categoryId, ]);
+            'categories' => $categoryId,
+            ]
+        );
 
         $response
             ->assertStatus(200)
@@ -84,16 +94,16 @@ class ProductTest extends TestCase
             );
     }
 
-    public function test_delete()
+    public function testDelete()
     {
         $id = $this->createProduct();
 
-        $response = $this->deleteJson('/api/product/delete/'.$id);
+        $response = $this->deleteJson('/api/product/delete/' . $id);
 
         $response->assertStatus(204);
     }
 
-    public function test_list()
+    public function testList()
     {
         $this->createProduct();
         $response = $this->getJson('/api/product/list');
@@ -107,11 +117,11 @@ class ProductTest extends TestCase
             );
     }
 
-    public function test_about()
+    public function testAbout()
     {
         $id = $this->createProduct();
 
-        $response = $this->getJson('/api/product/about/'.$id);
+        $response = $this->getJson('/api/product/about/' . $id);
 
         $response
             ->assertStatus(200)
@@ -126,7 +136,7 @@ class ProductTest extends TestCase
             );
     }
 
-    public function test_filter()
+    public function testFilter()
     {
         $categoryResponse = $this->postJson('/api/category/create', ['name' => 'Laptop']);
 
@@ -144,6 +154,8 @@ class ProductTest extends TestCase
                     'manufacturer',
                     'release_date',
                     'price',
-                    'categories', ]]]);
+                'categories',
+                ]]]
+            );
     }
 }

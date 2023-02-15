@@ -28,20 +28,20 @@ const routes = [
   { path: '/', component: LayoutComponent },
   { path: '/create', component: CreateComponent },
   {
-        path: '/edit/:id', component: EditComponent, name: 'editUser', props: true,
-    },
-    {
-        path: '/about/:id', component: AboutComponent, name: 'aboutUser', props: true,
-    },
-    ];
+    path: '/edit/:id', component: EditComponent, name: 'editUser', props: true,
+  },
+  {
+    path: '/about/:id', component: AboutComponent, name: 'aboutUser', props: true,
+  },
+];
 
-    const router = VueRouter.createRouter({
-        history: VueRouter.createWebHistory(),
-        routes,
-    });
+const router = VueRouter.createRouter({
+  history: VueRouter.createWebHistory(),
+  routes,
+});
 
-    app.component('layout', LayoutComponent);
-    app.use(router);
+app.component('layout', LayoutComponent);
+app.use(router);
 
 /**
  * The following block of code may be used to automatically register your
@@ -61,4 +61,4 @@ const routes = [
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-    app.mount('#app');
+app.mount('#app');
