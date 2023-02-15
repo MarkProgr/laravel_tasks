@@ -3,5 +3,5 @@
 @section('title', 'Main Page')
 
 @section('content')
-    <div id="root"></div>
+    <router-view />
 @endsection

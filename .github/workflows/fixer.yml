@@ -19,7 +19,7 @@ jobs:
           tools: phpcs
 
       - name: Install Node.js dependencies
-        run: npm ci
+        run: npm ci --force
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
