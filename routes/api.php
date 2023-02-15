@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\LocalUserController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\ProductController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 
 //Route::middleware('')->group(function () {
 //    Route::controller(ProductController::class)->group(function () {
@@ -54,3 +50,8 @@ Route::delete('/delete/{user}', [LocalUserController::class, 'delete']);
 Route::post('/create', [LocalUserController::class, 'create']);
 
 Route::get('/list', [LocalUserController::class, 'list']);
+
+Route::controller(MessageController::class)->group(function () {
+    Route::get('/messages', 'index');
+    Route::post('/messages', 'send');
+});

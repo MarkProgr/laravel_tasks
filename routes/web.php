@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware('auth')->group(function () {
 Route::controller(LocalUserController::class)->group(function () {
-    Route::get('/list', 'list')->name('main');
+    Route::get('/', 'list')->name('main');
 //        Route::get('/create', 'createForm')->name('create.form');
 //        Route::post('/create', 'createUser')->name('create.user');
 //        Route::get('/edit/{localUser}', 'editForm')->name('edit.form');

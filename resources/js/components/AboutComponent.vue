@@ -20,7 +20,7 @@ export default {
     props: ['id'],
     methods: {
         async getUser() {
-            this.user = (await axios.get('api/about/' + this.id)).data.data;
+            this.user = (await axios.get('/api/about/' + this.id)).data.data;
         },
         goMainPage() {
             this.$router.push('/');

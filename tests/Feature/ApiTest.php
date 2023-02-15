@@ -9,28 +9,33 @@ use Tests\TestCase;
 
 class ApiTest extends TestCase
 {
-    use RefreshDatabase, DatabaseMigrations;
+    use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function createUser()
     {
-        $response = $this->postJson('/api/create',
+        $response = $this->postJson(
+            '/api/create',
             ['name' => 'Vasya',
-                'email' => rand(0, 1000).'@'.rand(0, 1000),
+                'email' => rand(0, 1000) . '@' . rand(0, 1000),
                 'gender' => 'Male',
                 'status' => 'Active',
-            ]);
+            ]
+        );
 
         return $response->json('data.id');
     }
 
-    public function test_create()
+    public function testCreate()
     {
-        $response = $this->postJson('/api/create',
+        $response = $this->postJson(
+            '/api/create',
             ['name' => 'Vasya',
-                'email' => rand(0, 1000).'@'.rand(0, 1000),
+                'email' => rand(0, 1000) . '@' . rand(0, 1000),
                 'gender' => 'Male',
                 'status' => 'Active',
-            ]);
+            ]
+        );
 
         $response
             ->assertStatus(201)
@@ -44,7 +49,7 @@ class ApiTest extends TestCase
             ]]);
     }
 
-    public function test_list()
+    public function testList()
     {
         $response = $this->getJson('/api/list');
 
@@ -53,15 +58,18 @@ class ApiTest extends TestCase
             ->assertJson(fn (AssertableJson $json) => $json->has('data'));
     }
 
-    public function test_edit()
+    public function testEdit()
     {
         $id = $this->createUser();
 
-        $response = $this->putJson('/api/edit/'.$id,
+        $response = $this->putJson(
+            '/api/edit/' . $id,
             ['name' => 'Volodya',
-                'email' => rand(0, 1000).'@'.rand(0, 1000),
+                'email' => rand(0, 1000) . '@' . rand(0, 1000),
                 'gender' => 'Female',
-                'status' => 'Active', ]);
+            'status' => 'Active',
+            ]
+        );
 
         $response
             ->assertStatus(200)
@@ -72,23 +80,24 @@ class ApiTest extends TestCase
                     'gender',
                     'status',
                     'image_name',
-                ]]);
+                ]]
+            );
     }
 
-    public function test_delete()
+    public function testDelete()
     {
         $id = $this->createUser();
 
-        $response = $this->deleteJson('/api/delete/'.$id);
+        $response = $this->deleteJson('/api/delete/' . $id);
 
         $response->assertStatus(204);
     }
 
-    public function test_about()
+    public function testAbout()
     {
         $id = $this->createUser();
 
-        $response = $this->getJson('/api/about/'.$id);
+        $response = $this->getJson('/api/about/' . $id);
 
         $response
             ->assertStatus(200)
@@ -99,6 +108,7 @@ class ApiTest extends TestCase
                     'gender',
                     'status',
                     'image_name',
-                ]]);
+                ]]
+            );
     }
 }

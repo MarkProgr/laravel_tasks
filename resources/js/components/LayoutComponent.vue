@@ -24,7 +24,7 @@
         </tbody>
         <router-link to="/create" class="btn btn-dark">Create User</router-link>
     </table>
-
+    <Chat />
 </template>
 
 <script>
@@ -32,6 +32,7 @@
     import axios from "axios";
     import EditComponent from "./EditComponent.vue";
     import CreateComponent from "./CreateComponent.vue";
+    import Chat from "./Chat.vue";
 
     export default {
         data() {
@@ -39,10 +40,10 @@
                 users: []
             }
         },
-        components: {CreateComponent, EditComponent, AboutComponent},
+        components: {Chat, CreateComponent, EditComponent, AboutComponent},
         methods: {
               async getUsers() {
-                  this.users = (await axios('api/list')).data.data
+                  this.users = (await axios('/api/list')).data.data
               },
               async deleteUser(id) {
                   await axios.delete('/api/delete/' + id);

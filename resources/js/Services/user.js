@@ -14,7 +14,7 @@ class UserService {
 
   async create(user) {
     try {
-      await axios.post('api/create', user);
+      await axios.post('/api/create', user);
     } catch (error) {
       this.handleError(error);
     }
@@ -22,7 +22,7 @@ class UserService {
 
   async edit(id, user) {
     try {
-      await axios.put(`/api/edit/${id}`, user);
+      await axios.put(` / api / edit / ${id}`, user);
     } catch (error) {
       this.handleError(error);
     }

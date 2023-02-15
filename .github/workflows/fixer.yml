@@ -19,14 +19,14 @@ jobs:
           tools: phpcs
 
       - name: Install Node.js dependencies
-        run: npm ci
+        run: npm ci --force
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
           eslint: true
           php_codesniffer: true
-          php_codesniffer_args: "--standard=PSR12 --ignore=*/node_modules/*"
+          php_codesniffer_args: "--standard=./phpcs.xml --ignore=*/node_modules/*"
   test:
     runs-on: ubuntu-latest
     steps:
