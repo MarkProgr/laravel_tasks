@@ -51,7 +51,7 @@ class ApiTest extends TestCase
 
     public function testList()
     {
-        $response = $this->getJson('/api/list');
+        $response = $this->getJson('/api/');
 
         $response
             ->assertStatus(200)

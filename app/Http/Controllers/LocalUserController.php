@@ -7,6 +7,7 @@ use App\Http\Requests\User\EditRequest;
 use App\Models\LocalUser;
 use App\Services\LocalUserService;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Octane\Facades\Octane;
 
 class LocalUserController extends Controller
 {
@@ -30,7 +31,7 @@ class LocalUserController extends Controller
             Storage::disk('public')->put($file->hashName(), file_get_contents($file));
         }
 
-        $localUser = $this->service->create($data);
+        $this->service->create($data);
 
         return redirect()->route('main');
     }

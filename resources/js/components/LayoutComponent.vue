@@ -24,7 +24,7 @@
         </tbody>
         <router-link to="/create" class="btn btn-dark">Create User</router-link>
     </table>
-    <Chat />
+<!--    <Chat />-->
 </template>
 
 <script>
@@ -43,7 +43,8 @@
         components: {Chat, CreateComponent, EditComponent, AboutComponent},
         methods: {
               async getUsers() {
-                  this.users = (await axios('/api/list')).data.data
+                  this.users = (await axios('/api/')).data.data;
+                  console.log(this.users);
               },
               async deleteUser(id) {
                   await axios.delete('/api/delete/' + id);
