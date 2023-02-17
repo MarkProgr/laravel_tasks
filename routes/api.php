@@ -17,29 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('')->group(function () {
-//    Route::controller(ProductController::class)->group(function () {
-//        Route::post('/api/product/create', 'create');
-//        Route::get('/api/product/about/{product}', 'about');
-//        Route::get('/api/product/list', 'list');
-//        Route::delete('/api/product/delete/{product}', 'delete');
-//        Route::put('/api/product/edit/{product}', 'update');
-//        Route::post('/api/product/filter', 'filterByCategory');
-//    });
-//});
-
 Route::post('/product/create', [ProductController::class, 'create']);
-Route::get('/product/about/{product}', [ProductController::class, 'about']);
-Route::get('/product/list', [ProductController::class, 'list']);
-Route::delete('/product/delete/{product}', [ProductController::class, 'delete']);
-Route::put('/product/edit/{product}', [ProductController::class, 'update']);
+Route::get('/product/{product}', [ProductController::class, 'about']);
+Route::get('/product/', [ProductController::class, 'list']);
+Route::delete('/product/{product}', [ProductController::class, 'delete']);
+Route::put('/product/{product}', [ProductController::class, 'update']);
 Route::post('/product/filter', [ProductController::class, 'filterByCategory']);
 
-Route::get('/category/about/{category}', [CategoryController::class, 'about']);
-Route::get('/category/list', [CategoryController::class, 'list']);
+Route::get('/category/{category}', [CategoryController::class, 'about']);
+Route::get('/category/', [CategoryController::class, 'list']);
 Route::post('/category/create', [CategoryController::class, 'create']);
-Route::delete('/category/delete/{category}', [CategoryController::class, 'delete']);
-Route::put('/category/edit/{category}', [CategoryController::class, 'update']);
+Route::delete('/category/{category}', [CategoryController::class, 'delete']);
+Route::put('/category/{category}', [CategoryController::class, 'update']);
 
 Route::get('/about/{user}', [LocalUserController::class, 'about']);
 
@@ -49,7 +38,7 @@ Route::delete('/delete/{user}', [LocalUserController::class, 'delete']);
 
 Route::post('/create', [LocalUserController::class, 'create']);
 
-Route::get('/list', [LocalUserController::class, 'list']);
+Route::get('/', [LocalUserController::class, 'list']);
 
 Route::controller(MessageController::class)->group(function () {
     Route::get('/messages', 'index');

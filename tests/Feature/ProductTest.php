@@ -71,7 +71,7 @@ class ProductTest extends TestCase
         $categoryId[] = $this->createCategory();
 
         $response = $this->putJson(
-            '/api/product/edit/' . $id,
+            '/api/product/' . $id,
             ['name' => 'Computer',
                 'description' => 'Is working',
                 'manufacturer' => 'Lenovo',
@@ -98,7 +98,7 @@ class ProductTest extends TestCase
     {
         $id = $this->createProduct();
 
-        $response = $this->deleteJson('/api/product/delete/' . $id);
+        $response = $this->deleteJson('/api/product/' . $id);
 
         $response->assertStatus(204);
     }
@@ -106,7 +106,7 @@ class ProductTest extends TestCase
     public function testList()
     {
         $this->createProduct();
-        $response = $this->getJson('/api/product/list');
+        $response = $this->getJson('/api/product/');
 
         $response
             ->assertStatus(200)
@@ -121,7 +121,7 @@ class ProductTest extends TestCase
     {
         $id = $this->createProduct();
 
-        $response = $this->getJson('/api/product/about/' . $id);
+        $response = $this->getJson('/api/product/' . $id);
 
         $response
             ->assertStatus(200)

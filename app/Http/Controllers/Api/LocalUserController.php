@@ -8,6 +8,7 @@ use App\Http\Requests\User\EditRequest;
 use App\Http\Resources\LocalUserResource;
 use App\Models\LocalUser;
 use App\Services\LocalUserService;
+use Laravel\Octane\Facades\Octane;
 
 class LocalUserController extends Controller
 {
@@ -47,7 +48,15 @@ class LocalUserController extends Controller
 
     public function list()
     {
-        $users = LocalUser::all();
+        $firstPart = fn() => LocalUser::query()->skip(0)->take(2)->get()->collect();
+        $lastPart = fn() => LocalUser::query()->skip(2)->take(2)->get()->collect();
+
+        [$firstUsers, $lastUsers] = Octane::concurrently([
+            $firstPart,
+            $lastPart
+        ], 9000);
+
+        $users = $firstUsers->merge($lastUsers);
 
         return LocalUserResource::collection($users);
     }
