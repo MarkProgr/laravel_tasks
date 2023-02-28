@@ -12,6 +12,9 @@ import LayoutComponent from './components/LayoutComponent.vue';
 import CreateComponent from './components/CreateComponent.vue';
 import EditComponent from './components/EditComponent.vue';
 import AboutComponent from './components/AboutComponent.vue';
+import CreateProduct from './components/products/CreateProduct.vue';
+import UpdateProduct from './components/products/UpdateProduct.vue';
+import ListOfProducts from './components/products/ListOfProducts.vue';
 
 /**
  *
@@ -32,6 +35,11 @@ const routes = [
   },
   {
     path: '/about/:id', component: AboutComponent, name: 'aboutUser', props: true,
+  },
+  { path: '/products', component: ListOfProducts },
+  { path: '/products/create', component: CreateProduct },
+  {
+    path: '/products/edit/:id', component: UpdateProduct, name: 'updateProduct', props: true,
   },
 ];
 

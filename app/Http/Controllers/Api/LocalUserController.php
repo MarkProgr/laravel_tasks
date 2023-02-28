@@ -8,6 +8,7 @@ use App\Http\Requests\User\EditRequest;
 use App\Http\Resources\LocalUserResource;
 use App\Models\LocalUser;
 use App\Services\LocalUserService;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Laravel\Octane\Facades\Octane;
 
 class LocalUserController extends Controller
@@ -46,17 +47,23 @@ class LocalUserController extends Controller
         return new LocalUserResource($user);
     }
 
-    public function list()
+    public function list(): AnonymousResourceCollection
     {
-        $firstPart = fn() => LocalUser::query()->skip(0)->take(2)->get()->collect();
-        $lastPart = fn() => LocalUser::query()->skip(2)->take(2)->get()->collect();
+        // For swoole with parallel programming
 
-        [$firstUsers, $lastUsers] = Octane::concurrently([
-            $firstPart,
-            $lastPart
-        ], 9000);
+//        $firstPart = fn() => LocalUser::query()->skip(0)->take(2)->get()->collect();
+//        $lastPart = fn() => LocalUser::query()->skip(2)->take(2)->get()->collect();
+//
+//        [$firstUsers, $lastUsers] = Octane::concurrently([
+//            $firstPart,
+//            $lastPart
+//        ], 9000);
+//
+//        $users = $firstUsers->merge($lastUsers);
 
-        $users = $firstUsers->merge($lastUsers);
+        // For roadrunner
+
+        $users = LocalUser::all();
 
         return LocalUserResource::collection($users);
     }

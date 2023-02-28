@@ -23,6 +23,7 @@
         </tr>
         </tbody>
         <router-link to="/create" class="btn btn-dark">Create User</router-link>
+        <router-link to="/products/" class="btn btn-dark">List of Products</router-link>
     </table>
 <!--    <Chat />-->
 </template>
@@ -40,11 +41,10 @@
                 users: []
             }
         },
-        components: {Chat, CreateComponent, EditComponent, AboutComponent},
+        components: {Chat},
         methods: {
               async getUsers() {
                   this.users = (await axios('/api/')).data.data;
-                  console.log(this.users);
               },
               async deleteUser(id) {
                   await axios.delete('/api/delete/' + id);
