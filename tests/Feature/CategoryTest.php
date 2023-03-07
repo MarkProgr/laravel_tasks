@@ -14,14 +14,14 @@ class CategoryTest extends TestCase
 
     public function createCategory()
     {
-        $response = $this->postJson('/api/category/create', ['name' => 'Laptop']);
+        $response = $this->postJson('/api/categories', ['name' => 'Laptop']);
 
         return $response->json('data.id');
     }
 
     public function testCreate()
     {
-        $response = $this->postJson('/api/category/create', ['name' => 'Laptop']);
+        $response = $this->postJson('/api/categories', ['name' => 'Laptop']);
 
         $response
             ->assertStatus(201)
@@ -37,7 +37,7 @@ class CategoryTest extends TestCase
         $id = $this->createCategory();
 
         $response = $this->putJson(
-            '/api/category/' . $id,
+            '/api/categories/' . $id,
             ['name' => 'Laptops']
         );
 
@@ -52,14 +52,14 @@ class CategoryTest extends TestCase
     {
         $id = $this->createCategory();
 
-        $response = $this->deleteJson('/api/category/' . $id);
+        $response = $this->deleteJson('/api/categories/' . $id);
 
         $response->assertStatus(204);
     }
 
     public function testList()
     {
-        $response = $this->getJson('/api/category/');
+        $response = $this->getJson('/api/categories/');
 
         $response
             ->assertStatus(200)
@@ -70,7 +70,7 @@ class CategoryTest extends TestCase
     {
         $id = $this->createCategory();
 
-        $response = $this->getJson('/api/category/' . $id);
+        $response = $this->getJson('/api/categories/' . $id);
 
         $response
             ->assertStatus(200)

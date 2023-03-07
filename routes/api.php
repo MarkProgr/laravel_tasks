@@ -17,18 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/product/create', [ProductController::class, 'create']);
-Route::get('/product/{product}', [ProductController::class, 'about']);
-Route::get('/product/', [ProductController::class, 'list']);
-Route::delete('/product/{product}', [ProductController::class, 'delete']);
-Route::put('/product/{product}', [ProductController::class, 'update']);
-Route::post('/product/filter', [ProductController::class, 'filterByCategory']);
+Route::post('/products', [\DDD\Product\Application\ProductController::class, 'addProduct']);
+Route::get('/products/{product}', [ProductController::class, 'about']);
+Route::get('/products', [\DDD\Product\Application\ProductController::class, 'showProducts']);
+Route::delete('/products/{product}', [\DDD\Product\Application\ProductController::class, 'deleteProduct']);
+Route::put('/products/{product}', [\DDD\Product\Application\ProductController::class, 'updateProduct']);
+Route::post('/products/filter', [ProductController::class, 'filterByCategory']);
 
-Route::get('/category/{category}', [CategoryController::class, 'about']);
-Route::get('/category/', [CategoryController::class, 'list']);
-Route::post('/category/create', [CategoryController::class, 'create']);
-Route::delete('/category/{category}', [CategoryController::class, 'delete']);
-Route::put('/category/{category}', [CategoryController::class, 'update']);
+Route::get('/categories/{category}', [CategoryController::class, 'about']);
+Route::get('/categories', [CategoryController::class, 'list']);
+Route::post('/categories', [CategoryController::class, 'create']);
+Route::delete('/categories/{category}', [CategoryController::class, 'delete']);
+Route::put('/categories/{category}', [CategoryController::class, 'update']);
 
 Route::get('/about/{user}', [LocalUserController::class, 'about']);
 
